@@ -3,7 +3,7 @@
 /////////////////
 const path = require('path')
 const router = require('express').Router();
-const rootPath = path.join(__dirname, "../../")
+const rootPath = path.join(__dirname, "../../");
 //Response for the home page
 const home = (req, res) => {
 	res.sendFile(rootPath + "./frontend/index.html");
