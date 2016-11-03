@@ -6,7 +6,10 @@
 //comments on posts
 //Images for post
 //Author of blog post
+//related blog posts to tags
 //archive: boolean
+
+//COMMENTS
 
 
 //ARCHIVE:
@@ -30,11 +33,9 @@
 //date joined
 //age
 
-//ADVERTISERS:
-//Advertisers
 const mongoose = require('mongoose');
 const blogSchema = mongoose.Schema({
-	title: {type: String, required: true},
+	title: {type: String, required: true, unique: true},
 	author: String,
 })
 
