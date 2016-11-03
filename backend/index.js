@@ -3,7 +3,7 @@
 ////////////
 
 //Models
-constPosts = require('./posts/posts-model');
+const Posts = require('./posts/posts-model');
 
 //Routes
 const home = require('./home/home-router');

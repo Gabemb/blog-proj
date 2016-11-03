@@ -12,7 +12,7 @@ const Post = mongoose.model('Post');
 //(this is a necessary step that loads our models and registers them with mongoose)
 const models = require('./index').models;
 //Require in routes:
-const routes = require('./index').models
+const routes = require('./index').routes;
 
 //Connect to database and start server:
 //(whatever we put after 'localhost/' will automatically be the name of database)
