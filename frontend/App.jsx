@@ -2,7 +2,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import {Router, Route, browserHistory,IndexRoute} from 'react-router';
 import $ from 'jquery';
-import Home from './components/Home.jsx';
+import Home from './components/home.jsx';
 import NewPostForm from './components/postpage.jsx';
 
 var App = React.createClass({
@@ -17,7 +17,7 @@ var App = React.createClass({
 
 render(
    <Router history={browserHistory}>
-    <Route path="/" component={Home} >,
+    <Route path="/" component={Home} >
     	<IndexRoute component={Home}/>
     </Route>
       <Route path="/newpost" component={NewPostForm} />

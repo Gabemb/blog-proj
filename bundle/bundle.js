@@ -58,9 +58,9 @@
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	var _Home = __webpack_require__(229);
+	var _home = __webpack_require__(229);
 	
-	var _Home2 = _interopRequireDefault(_Home);
+	var _home2 = _interopRequireDefault(_home);
 	
 	var _postpage = __webpack_require__(230);
 	
@@ -71,70 +71,6 @@
 	var App = _react2.default.createClass({
 	  displayName: 'App',
 	
-<<<<<<< HEAD
-	var NewPostForm = _react2.default.createClass({
-		displayName: 'NewPostForm',
-		getInitialState: function getInitialState() {
-<<<<<<< HEAD
-			return { blogTitle: "" };
-		},
-		handleChange: function handleChange(event) {
-			this.setState({ blogTitle: event.target.value });
-		},
-		makeNewPost: function makeNewPost(event) {
-			event.preventDefault();
-			var blogPost = this.state.blogTitle;
-			_jquery2.default.ajax({
-				url: '/posts',
-				type: 'POST',
-				data: { title: blogPost }
-=======
-			return { title: '',
-				blog: '',
-				author: '',
-				imgURL: ''
-			};
-		},
-		handleChange: function handleChange(inputEvent, event) {
-			this.setState(_defineProperty({}, inputEvent, event.target.value));
-		},
-		makeNewPost: function makeNewPost(event) {
-			event.preventDefault();
-			var blogTitle = this.state.title;
-			var blogBlog = this.state.blog;
-			var blogAuthor = this.state.author;
-			var blogURL = this.state.imgURL;
-			console.log(blogTitle);
-			_jquery2.default.ajax({
-				url: '/posts',
-				type: 'POST',
-				data: { title: blogTitle,
-					blog: blogBlog,
-					author: blogAuthor,
-					imgURL: blogURL }
->>>>>>> 7dd4db3cef7c7a5a23e0985f3406f8d86d790d73
-			});
-		},
-		render: function render() {
-			return _react2.default.createElement(
-				'form',
-				{ onSubmit: this.makeNewPost },
-				_react2.default.createElement('input', { type: 'text', placeholder: 'title',
-					onChange: this.handleChange.bind(this, 'title'),
-					value: this.state.input }),
-				_react2.default.createElement('input', { type: 'text', placeholder: 'blog',
-					onChange: this.handleChange.bind(this, 'blog'),
-					value: this.state.input }),
-				_react2.default.createElement('input', { type: 'text', placeholder: 'author',
-					onChange: this.handleChange.bind(this, 'author'),
-					value: this.state.input }),
-				_react2.default.createElement('input', { type: 'text', placeholder: 'img',
-					onChange: this.handleChange.bind(this, 'imgURL'),
-					value: this.state.input }),
-				_react2.default.createElement('input', { type: 'submit' })
-			);
-		}
-=======
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
@@ -142,7 +78,6 @@
 	      this.props.children
 	    );
 	  }
->>>>>>> 439d73f371c616a3e70f37c125a16d70c8474400
 	});
 	
 	(0, _reactDom.render)(_react2.default.createElement(
@@ -150,9 +85,8 @@
 	  { history: _reactRouter.browserHistory },
 	  _react2.default.createElement(
 	    _reactRouter.Route,
-	    { path: '/', component: _Home2.default },
-	    ',',
-	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default })
+	    { path: '/', component: _home2.default },
+	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _home2.default })
 	  ),
 	  _react2.default.createElement(_reactRouter.Route, { path: '/newpost', component: _postpage2.default })
 	), document.getElementById('root'));
