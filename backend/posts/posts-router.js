@@ -3,7 +3,7 @@
 /////////////
 
 const router = require('express').Router();
-const BlogPost = require('./posts-model');
+const BlogPost = require('mongoose').model('BlogPost');
 
 //Get all posts from database
 const getBlogPosts = (req, res) => {
