@@ -36,11 +36,14 @@
 const mongoose = require('mongoose');
 const blogSchema = mongoose.Schema({
 	title: {type: String, required: true, unique: true},
+	text: {type: String, required: true},
 	author: String,
-})
+	imgURL: String,
+	date: Date
+});
 
 //First argument is name of mode, second argument is schema
-const Post = mongoose.model('Post', blogSchema);
+mongoose.model('BlogPost', blogSchema);
 
 
 
