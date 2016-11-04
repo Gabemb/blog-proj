@@ -36,10 +36,9 @@
 const mongoose = require('mongoose');
 const blogSchema = mongoose.Schema({
 	title: {type: String, required: true, unique: true},
-	text: {type: String, required: true},
+	blog: {type: String, required: true},
 	author: String,
-	imgURL: String,
-	date: Date
+	imgURL: String
 });
 
 //First argument is name of mode, second argument is schema
