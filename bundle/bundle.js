@@ -58,29 +58,51 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
 	var NewPostForm = _react2.default.createClass({
 		displayName: 'NewPostForm',
 		getInitialState: function getInitialState() {
-			return { input: "" };
+			return { title: '',
+				blog: '',
+				author: '',
+				imgURL: ''
+			};
 		},
-		handleChange: function handleChange(event) {
-			this.setState({ input: event.target.value });
+		handleChange: function handleChange(inputEvent, event) {
+			this.setState(_defineProperty({}, inputEvent, event.target.value));
 		},
 		makeNewPost: function makeNewPost(event) {
 			event.preventDefault();
-			var blogPost = this.state.input;
+			var blogTitle = this.state.title;
+			var blogBlog = this.state.blog;
+			var blogAuthor = this.state.author;
+			var blogURL = this.state.imgURL;
+			console.log(blogTitle);
 			_jquery2.default.ajax({
 				url: '/posts',
 				type: 'POST',
-				data: { post: blogPost }
+				data: { title: blogTitle,
+					blog: blogBlog,
+					author: blogAuthor,
+					imgURL: blogURL }
 			});
 		},
 		render: function render() {
 			return _react2.default.createElement(
 				'form',
 				{ onSubmit: this.makeNewPost },
-				_react2.default.createElement('input', { type: 'text', placeholder: 'body',
-					onChange: this.handleChange,
+				_react2.default.createElement('input', { type: 'text', placeholder: 'title',
+					onChange: this.handleChange.bind(this, 'title'),
+					value: this.state.input }),
+				_react2.default.createElement('input', { type: 'text', placeholder: 'blog',
+					onChange: this.handleChange.bind(this, 'blog'),
+					value: this.state.input }),
+				_react2.default.createElement('input', { type: 'text', placeholder: 'author',
+					onChange: this.handleChange.bind(this, 'author'),
+					value: this.state.input }),
+				_react2.default.createElement('input', { type: 'text', placeholder: 'img',
+					onChange: this.handleChange.bind(this, 'imgURL'),
 					value: this.state.input }),
 				_react2.default.createElement('input', { type: 'submit' })
 			);

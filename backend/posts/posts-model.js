@@ -34,17 +34,19 @@
 //age
 
 const mongoose = require('mongoose');
-const blogSchema = mongoose.Schema({
+var Schema = mongoose.Schema;
+const blogSchema = new Schema({
 	title: {type: String, required: true, unique: true},
-	text: String,
-	author: String
+	blog: {type: String},
+	author: String,
+	imgURL: String,
+	date: String
 });
 
 //First argument is name of mode, second argument is schema
-mongoose.model('BlogPost', blogSchema);
+var BlogPosts = mongoose.model('Blogpost', blogSchema);
 
-
-
+module.exports = BlogPosts;
 
 
 
