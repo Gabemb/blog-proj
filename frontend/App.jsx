@@ -1,56 +1,26 @@
 import React from 'react';
 import {render} from 'react-dom';
+import {Router, Route, browserHistory,IndexRoute} from 'react-router';
 import $ from 'jquery';
+import Home from './components/Home.jsx';
+import NewPostForm from './components/postpage.jsx';
 
-var NewPostForm = React.createClass({
-	getInitialState() {
-		return {title:'',
-				blog: '',
-				author: '',
-				imgURL: ''
-			}
-	},
-	handleChange(inputEvent,event) {
-		this.setState({[inputEvent]: event.target.value});
-	},
-	makeNewPost(event) {
-		event.preventDefault();
-		let blogTitle = this.state.title;
-		let blogBlog = this.state.blog;
-		let blogAuthor = this.state.author;
-		let blogURL = this.state.imgURL
-		console.log(blogTitle)
-		$.ajax({
-			url: '/posts',
-			type: 'POST',
-			data: {	title: blogTitle, 
-					blog: blogBlog, 
-					author: blogAuthor, 
-					imgURL: blogURL }
-		});
-	},
-	render() {
-		return (
-			<form onSubmit={this.makeNewPost}>
-				<input type="text" placeholder="title" 
-				onChange={this.handleChange.bind(this,'title')}
-				value={this.state.input} />
-				<input type="text" placeholder="blog" 
-				onChange={this.handleChange.bind(this,'blog')}
-				value={this.state.input} />
-				<input type="text" placeholder="author" 
-				onChange={this.handleChange.bind(this,'author')}
-				value={this.state.input} />
-				<input type="text" placeholder="img" 
-				onChange={this.handleChange.bind(this,'imgURL')}
-				value={this.state.input} />
-				<input type="submit"></input>
-			</form>
-		)
-	}
-});
+var App = React.createClass({
+  render: function() {
+    return (
+    	<div id = "app-main">
+        {this.props.children}
+      </div>  
+    )
+  }
+})
 
 render(
-  <NewPostForm/>,
+   <Router history={browserHistory}>
+    <Route path="/" component={Home} >,
+    	<IndexRoute component={Home}/>
+    </Route>
+      <Route path="/newpost" component={NewPostForm} />
+   </Router>,
   document.getElementById('root')
 );
