@@ -1,3 +1,15 @@
+const mongoose = require('mongoose');
+
+const blogSchema = mongoose.Schema({
+	title: {type: String, required: true, unique: true},
+	blog: {type: String, required: true},
+	author: String,
+	imgURL: String
+});
+
+//First argument is name of mode, second argument is schema
+mongoose.model('BlogPost', blogSchema);
+
 //BLOG POSTS:
 //Title of blog post
 //Date posted
@@ -32,26 +44,6 @@
 //password
 //date joined
 //age
-
-const mongoose = require('mongoose');
-const blogSchema = mongoose.Schema({
-	title: {type: String, required: true, unique: true},
-	blog: {type: String, required: true},
-	author: String,
-	imgURL: String
-});
-
-//First argument is name of mode, second argument is schema
-mongoose.model('BlogPost', blogSchema);
-
-
-
-
-
-
-
-
-
 
 
 
