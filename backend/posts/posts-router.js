@@ -3,7 +3,7 @@
 /////////////
 
 const router = require('express').Router();
-const BlogPost = require('mongoose').model('BlogPost');
+const BlogPost = require('./posts-model');
 
 //Get all posts from database
 const getBlogPosts = (req, res) => {
@@ -18,8 +18,17 @@ const postBlogPosts = (req, res) => {
   // Post.create({title: 'testing123', test: 'sucessfully created a test post'}, () => {
   //   console.log('post successfully created');
   // })
-  BlogPost.create({title: req.body.post, test: 'sucessfully created a test post'}, () => {
-    console.log('post successfully created');
+  BlogPost.create({
+    title: req.body.title,
+    blog: req.body.blog,
+    author: req.body.author,
+    imgURL: req.body.imgURL
+  }, (err) => {
+    if (err){
+      console.log('error');
+      return;
+    }
+    console.log('success!');
   })
 }
 
