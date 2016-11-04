@@ -1,5 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
+import {Link} from 'react-router'
 import $ from 'jquery';
 
 var NewPostForm = React.createClass({
@@ -7,32 +8,32 @@ var NewPostForm = React.createClass({
 		return {title:'',
 				blog: '',
 				author: '',
-				imgURL: ''
+				imgURL: '',
 			}
 	},
 	handleChange(inputEvent,event) {
 		this.setState({[inputEvent]: event.target.value});
 	},
 	makeNewPost(event) {
-		event.preventDefault();
 		let blogTitle = this.state.title;
 		let blogBlog = this.state.blog;
 		let blogAuthor = this.state.author;
 		let blogURL = this.state.imgURL
-		console.log(blogTitle)
 		$.ajax({
 			url: '/posts',
 			type: 'POST',
 			data: {	title: blogTitle, 
 					blog: blogBlog, 
 					author: blogAuthor, 
-					imgURL: blogURL }
+					imgURL: blogURL,
+					date: Date.call()
+					}
 		});
 	},
 	render() {
 		return (
 			<div>
-			<form onSubmit={this.makeNewPost}>
+			<form>
 				<input type="text" placeholder="title" 
 				onChange={this.handleChange.bind(this,'title')}
 				value={this.state.input} />
@@ -45,7 +46,7 @@ var NewPostForm = React.createClass({
 				<input type="text" placeholder="img" 
 				onChange={this.handleChange.bind(this,'imgURL')}
 				value={this.state.input} />
-				<input type="submit"></input>
+				<Link to='/'> <input onClick={this.makeNewPost} type="button" value="submit" /> </Link>
 			</form>
 			</div>
 		)

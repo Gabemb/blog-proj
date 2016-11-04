@@ -71,70 +71,6 @@
 	var App = _react2.default.createClass({
 	  displayName: 'App',
 	
-<<<<<<< HEAD
-	var NewPostForm = _react2.default.createClass({
-		displayName: 'NewPostForm',
-		getInitialState: function getInitialState() {
-<<<<<<< HEAD
-			return { blogTitle: "" };
-		},
-		handleChange: function handleChange(event) {
-			this.setState({ blogTitle: event.target.value });
-		},
-		makeNewPost: function makeNewPost(event) {
-			event.preventDefault();
-			var blogPost = this.state.blogTitle;
-			_jquery2.default.ajax({
-				url: '/posts',
-				type: 'POST',
-				data: { title: blogPost }
-=======
-			return { title: '',
-				blog: '',
-				author: '',
-				imgURL: ''
-			};
-		},
-		handleChange: function handleChange(inputEvent, event) {
-			this.setState(_defineProperty({}, inputEvent, event.target.value));
-		},
-		makeNewPost: function makeNewPost(event) {
-			event.preventDefault();
-			var blogTitle = this.state.title;
-			var blogBlog = this.state.blog;
-			var blogAuthor = this.state.author;
-			var blogURL = this.state.imgURL;
-			console.log(blogTitle);
-			_jquery2.default.ajax({
-				url: '/posts',
-				type: 'POST',
-				data: { title: blogTitle,
-					blog: blogBlog,
-					author: blogAuthor,
-					imgURL: blogURL }
->>>>>>> 7dd4db3cef7c7a5a23e0985f3406f8d86d790d73
-			});
-		},
-		render: function render() {
-			return _react2.default.createElement(
-				'form',
-				{ onSubmit: this.makeNewPost },
-				_react2.default.createElement('input', { type: 'text', placeholder: 'title',
-					onChange: this.handleChange.bind(this, 'title'),
-					value: this.state.input }),
-				_react2.default.createElement('input', { type: 'text', placeholder: 'blog',
-					onChange: this.handleChange.bind(this, 'blog'),
-					value: this.state.input }),
-				_react2.default.createElement('input', { type: 'text', placeholder: 'author',
-					onChange: this.handleChange.bind(this, 'author'),
-					value: this.state.input }),
-				_react2.default.createElement('input', { type: 'text', placeholder: 'img',
-					onChange: this.handleChange.bind(this, 'imgURL'),
-					value: this.state.input }),
-				_react2.default.createElement('input', { type: 'submit' })
-			);
-		}
-=======
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
@@ -142,7 +78,6 @@
 	      this.props.children
 	    );
 	  }
->>>>>>> 439d73f371c616a3e70f37c125a16d70c8474400
 	});
 	
 	(0, _reactDom.render)(_react2.default.createElement(
@@ -150,8 +85,7 @@
 	  { history: _reactRouter.browserHistory },
 	  _react2.default.createElement(
 	    _reactRouter.Route,
-	    { path: '/', component: _Home2.default },
-	    ',',
+	    { path: '/' },
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default })
 	  ),
 	  _react2.default.createElement(_reactRouter.Route, { path: '/newpost', component: _postpage2.default })
@@ -36762,16 +36696,64 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
+	var _jquery = __webpack_require__(228);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Home = _react2.default.createClass({
 		displayName: 'Home',
+		getInitialState: function getInitialState() {
+			return { blogs: [] };
+		},
+		componentDidMount: function componentDidMount() {
+			var _this = this;
+	
+			_jquery2.default.ajax({
+				url: '/posts',
+				type: 'GET'
+			}).done(function (data) {
+				_this.setState({ blogs: data });
+			});
+		},
 	
 		render: function render() {
+			console.log("OUR STATE", this.state.blogs);
+			if (this.state.blogs.length > 1) console.log(this.state.blogs[0]._id);
 			return _react2.default.createElement(
 				'div',
 				{ id: 'landing-main' },
-				'Hello From Home'
+				this.state.blogs.map(function (blog, idx) {
+					return _react2.default.createElement(
+						'div',
+						{ key: idx },
+						_react2.default.createElement(
+							'h1',
+							null,
+							blog.title
+						),
+						_react2.default.createElement(
+							'h6',
+							null,
+							'By: ',
+							blog.author
+						),
+						' ',
+						_react2.default.createElement(
+							'h6',
+							null,
+							'Date posted: ',
+							blog.date
+						),
+						_react2.default.createElement('img', { alt: 'image', src: blog.imgURL }),
+						_react2.default.createElement(
+							'p',
+							null,
+							blog.blog
+						)
+					);
+				})
 			);
 		}
 	});
@@ -36794,6 +36776,8 @@
 	
 	var _reactDom = __webpack_require__(34);
 	
+	var _reactRouter = __webpack_require__(172);
+	
 	var _jquery = __webpack_require__(228);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
@@ -36815,19 +36799,19 @@
 			this.setState(_defineProperty({}, inputEvent, event.target.value));
 		},
 		makeNewPost: function makeNewPost(event) {
-			event.preventDefault();
 			var blogTitle = this.state.title;
 			var blogBlog = this.state.blog;
 			var blogAuthor = this.state.author;
 			var blogURL = this.state.imgURL;
-			console.log(blogTitle);
 			_jquery2.default.ajax({
 				url: '/posts',
 				type: 'POST',
 				data: { title: blogTitle,
 					blog: blogBlog,
 					author: blogAuthor,
-					imgURL: blogURL }
+					imgURL: blogURL,
+					date: Date.call()
+				}
 			});
 		},
 		render: function render() {
@@ -36836,7 +36820,7 @@
 				null,
 				_react2.default.createElement(
 					'form',
-					{ onSubmit: this.makeNewPost },
+					null,
 					_react2.default.createElement('input', { type: 'text', placeholder: 'title',
 						onChange: this.handleChange.bind(this, 'title'),
 						value: this.state.input }),
@@ -36849,7 +36833,13 @@
 					_react2.default.createElement('input', { type: 'text', placeholder: 'img',
 						onChange: this.handleChange.bind(this, 'imgURL'),
 						value: this.state.input }),
-					_react2.default.createElement('input', { type: 'submit' })
+					_react2.default.createElement(
+						_reactRouter.Link,
+						{ to: '/' },
+						' ',
+						_react2.default.createElement('input', { onClick: this.makeNewPost, type: 'button', value: 'submit' }),
+						' '
+					)
 				)
 			);
 		}

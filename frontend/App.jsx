@@ -17,8 +17,8 @@ var App = React.createClass({
 
 render(
    <Router history={browserHistory}>
-    <Route path="/" component={Home} >,
-    	<IndexRoute component={Home}/>
+    <Route path="/">
+    <IndexRoute component={Home}/>
     </Route>
       <Route path="/newpost" component={NewPostForm} />
    </Router>,

@@ -4,7 +4,8 @@ const blogSchema = mongoose.Schema({
 	title: {type: String, required: true, unique: true},
 	blog: {type: String, required: true},
 	author: String,
-	imgURL: String
+	imgURL: String,
+	date: String
 });
 
 //First argument is name of mode, second argument is schema
