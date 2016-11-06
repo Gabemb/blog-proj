@@ -3,7 +3,8 @@ import {render} from 'react-dom';
 import {Router, Route, browserHistory,IndexRoute} from 'react-router';
 import $ from 'jquery';
 import Home from './components/home.jsx';
-import NewPostForm from './components/postpage.jsx';
+import newUser from './components/userlist.jsx';
+import NewPostForm from './components/postpage.jsx'
 
 var App = React.createClass({
   render: function() {
@@ -17,10 +18,11 @@ var App = React.createClass({
 
 render(
    <Router history={browserHistory}>
-    <Route path="/" component={Home} >
-    	<IndexRoute component={Home}/>
-    </Route>
+    <Route path="/">
+    <IndexRoute component={Home}/>
       <Route path="/newpost" component={NewPostForm} />
+      <Route path="/newuser" component={newUser} />
+    </Route>
    </Router>,
   document.getElementById('root')
 );

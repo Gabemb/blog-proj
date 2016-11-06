@@ -4,21 +4,21 @@
 
 //Models
 const BlogPosts = require('./posts/posts-model');
-const UserList = require('./userdb/user-model')
+const UserList = require('./userdb/user-model');
 
 //Routes
 const home = require('./home/home-router');
 const posts = require('./posts/posts-router');
-const login = require('./login/login')
+const user = require('./userdb/user-router');
 
 module.exports = {
   models: {
-    Post: BlogPosts
+    Post: BlogPosts,
     User: UserList
   },
   routes: {
+    home: home,
     posts: posts,
-    home: home
-    login: login
+    user: user
   }
 }
