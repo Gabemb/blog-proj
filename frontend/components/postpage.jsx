@@ -1,6 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {Link} from 'react-router'
+import {Link} from 'react-router';
+
 import $ from 'jquery';
 
 var NewPostForm = React.createClass({
@@ -19,7 +20,7 @@ var NewPostForm = React.createClass({
 		let blogTitle = this.state.title;
 		let blogBlog = this.state.blog;
 		let blogAuthor = this.state.author;
-		let blogURL = this.state.imgURL
+		let blogURL = this.state.imgURL;
 		$.ajax({
 			url: '/posts',
 			type: 'POST',

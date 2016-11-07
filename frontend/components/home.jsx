@@ -17,8 +17,6 @@ var Home = React.createClass({
 	},
 	render: function(){
 		console.log("OUR STATE", this.state.blogs)
-		if (this.state.blogs.length > 1) 
-			console.log(this.state.blogs[0]._id);
 		return (
 			<div id="landing-main">
 				{this.state.blogs.map( (blog, idx) => {

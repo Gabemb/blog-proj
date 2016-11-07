@@ -1,6 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {Link} from 'react-router';
+
 import $ from 'jquery';
 
 var newUser = React.createClass({
@@ -26,7 +27,7 @@ var newUser = React.createClass({
 				bio: this.state.bio,
 				date: Date.call()
 				}	
-			})
+			});
 	},
 	render() {
 		return (

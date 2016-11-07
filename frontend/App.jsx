@@ -1,7 +1,9 @@
+//React modules
 import React from 'react';
 import {render} from 'react-dom';
 import {Router, Route, browserHistory,IndexRoute} from 'react-router';
-import $ from 'jquery';
+
+//App components
 import Home from './components/home.jsx';
 import newUser from './components/userlist.jsx';
 import NewPostForm from './components/postpage.jsx'
