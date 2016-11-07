@@ -24,7 +24,7 @@ render(
     <Route path="/">
     <IndexRoute component={Home}/>
       <Route path="/newpost" component={NewPostForm} />
-      <Route path="/newuser" component={newUser} />
+      <Route path="/newuser" component={newUser} />  
       <Route path="/user/:userName" component={userProfile}/>
     </Route>
    </Router>,

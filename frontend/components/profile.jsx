@@ -1,6 +1,6 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import {Link} from 'react-router'
+
 import $ from 'jquery'
 
 var userProfile = React.createClass({
@@ -12,8 +12,8 @@ var userProfile = React.createClass({
 			url: '/posts',
 			type: 'GET',
 		}).done( (data) => {
-		 this.setState({blogs: data.reverse()
-		 })})
+		 		this.setState({blogs: data.reverse()});
+			});
 		},
 	render: function(){
 		if (this.state.blogs.length > 1) 
