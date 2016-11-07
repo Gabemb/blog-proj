@@ -8,7 +8,7 @@ const blogSchema = mongoose.Schema({
 	date: String
 });
 
-//First argument is name of mode, second argument is schema
+//First argument is name of model, second argument is schema
 mongoose.model('BlogPost', blogSchema);
 
 //BLOG POSTS:

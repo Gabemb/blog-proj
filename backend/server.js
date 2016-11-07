@@ -12,7 +12,7 @@ const bodyParser = require('body-parser');
 //(this is a necessary step that loads our models and registers them with mongoose)
 const models = require('./index').models;
 //Require in routes:
-const routes = require('./index').routes
+const routes = require('./index').routes;
 
 //Connect to database and start server:
 //(whatever we put after 'localhost/' will automatically be the name of database)
@@ -23,12 +23,13 @@ const db = mongoose.connection;
 //Start the server after successful database connection:
 db.on('open', () => {
 	app.use(bodyParser.urlencoded({ extended: true }));
-	app.use(express.static('bundle'))
+	app.use(express.static('bundle'));
 	app.use('/posts', routes.posts);
+	app.use('/user', routes.user);
 	app.use('*', routes.home);
 	//Launch server on port 5555
 	app.listen(5555, () => {
-		console.log('Listening on post 5555')
+		console.log('Listening on port 5555')
 	});
 });
 

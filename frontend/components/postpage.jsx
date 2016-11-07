@@ -5,11 +5,12 @@ import $ from 'jquery';
 
 var NewPostForm = React.createClass({
 	getInitialState() {
-		return {title:'',
+		return {
+				title:'',
 				blog: '',
 				author: '',
 				imgURL: '',
-			}
+				}
 	},
 	handleChange(inputEvent,event) {
 		this.setState({[inputEvent]: event.target.value});

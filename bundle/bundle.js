@@ -58,11 +58,15 @@
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	var _Home = __webpack_require__(229);
+	var _home = __webpack_require__(229);
 	
-	var _Home2 = _interopRequireDefault(_Home);
+	var _home2 = _interopRequireDefault(_home);
 	
-	var _postpage = __webpack_require__(230);
+	var _userlist = __webpack_require__(230);
+	
+	var _userlist2 = _interopRequireDefault(_userlist);
+	
+	var _postpage = __webpack_require__(231);
 	
 	var _postpage2 = _interopRequireDefault(_postpage);
 	
@@ -86,9 +90,10 @@
 	  _react2.default.createElement(
 	    _reactRouter.Route,
 	    { path: '/' },
-	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default })
-	  ),
-	  _react2.default.createElement(_reactRouter.Route, { path: '/newpost', component: _postpage2.default })
+	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _home2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/newpost', component: _postpage2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/newuser', component: _userlist2.default })
+	  )
 	), document.getElementById('root'));
 
 /***/ },
@@ -36696,6 +36701,8 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
+	var _reactRouter = __webpack_require__(172);
+	
 	var _jquery = __webpack_require__(228);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
@@ -36714,7 +36721,7 @@
 				url: '/posts',
 				type: 'GET'
 			}).done(function (data) {
-				_this.setState({ blogs: data });
+				_this.setState({ blogs: data.reverse() });
 			});
 		},
 	
@@ -36736,17 +36743,20 @@
 						_react2.default.createElement(
 							'h6',
 							null,
-							'By: ',
-							blog.author
-						),
-						' ',
-						_react2.default.createElement(
-							'h6',
-							null,
 							'Date posted: ',
 							blog.date
 						),
-						_react2.default.createElement('img', { alt: 'image', src: blog.imgURL }),
+						_react2.default.createElement(
+							_reactRouter.Link,
+							{ to: '/user/' + blog.author },
+							_react2.default.createElement(
+								'h3',
+								null,
+								'By: ',
+								blog.author
+							)
+						),
+						_react2.default.createElement('img', { alt: 'image', src: blog.imgURL, width: 800, height: 600 }),
 						_react2.default.createElement(
 							'p',
 							null,
@@ -36786,10 +36796,90 @@
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
+	var newUser = _react2.default.createClass({
+		displayName: 'newUser',
+		getInitialState: function getInitialState() {
+			return {
+				username: '',
+				password: '',
+				email: '',
+				bio: ''
+			};
+		},
+		handleChange: function handleChange(inputEvent, event) {
+			this.setState(_defineProperty({}, inputEvent, event.target.value));
+		},
+		makeNewUser: function makeNewUser(event) {
+			_jquery2.default.ajax({
+				url: '/user',
+				type: 'POST',
+				data: {
+					username: this.state.username,
+					password: this.state.password,
+					email: this.state.email,
+					bio: this.state.bio,
+					date: Date.call()
+				}
+			});
+		},
+		render: function render() {
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'form',
+					null,
+					_react2.default.createElement('input', { type: 'text', placeholder: 'desired username',
+						onChange: this.handleChange.bind(this, 'username'),
+						value: this.state.input }),
+					_react2.default.createElement('input', { type: 'text', placeholder: 'desired password',
+						onChange: this.handleChange.bind(this, 'password'),
+						value: this.state.input }),
+					_react2.default.createElement('input', { type: 'text', placeholder: 'e-mail',
+						onChange: this.handleChange.bind(this, 'email'),
+						value: this.state.input }),
+					_react2.default.createElement('input', { type: 'text', placeholder: 'bio',
+						onChange: this.handleChange.bind(this, 'bio'),
+						value: this.state.input }),
+					_react2.default.createElement('input', { onClick: this.makeNewUser, type: 'button', value: 'submit' })
+				)
+			);
+		}
+	});
+	
+	exports.default = newUser;
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(34);
+	
+	var _reactRouter = __webpack_require__(172);
+	
+	var _jquery = __webpack_require__(228);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
 	var NewPostForm = _react2.default.createClass({
 		displayName: 'NewPostForm',
 		getInitialState: function getInitialState() {
-			return { title: '',
+			return {
+				title: '',
 				blog: '',
 				author: '',
 				imgURL: ''
