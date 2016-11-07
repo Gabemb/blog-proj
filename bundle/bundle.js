@@ -70,6 +70,10 @@
 	
 	var _postpage2 = _interopRequireDefault(_postpage);
 	
+	var _profile = __webpack_require__(232);
+	
+	var _profile2 = _interopRequireDefault(_profile);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var App = _react2.default.createClass({
@@ -92,7 +96,8 @@
 	    { path: '/' },
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _home2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/newpost', component: _postpage2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/newuser', component: _userlist2.default })
+	    _react2.default.createElement(_reactRouter.Route, { path: '/newuser', component: _userlist2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/user/:userName', component: _profile2.default })
 	  )
 	), document.getElementById('root'));
 
@@ -36747,12 +36752,12 @@
 							blog.date
 						),
 						_react2.default.createElement(
-							_reactRouter.Link,
-							{ to: '/user/' + blog.author },
+							'h3',
+							null,
+							'By:',
 							_react2.default.createElement(
-								'h3',
-								null,
-								'By: ',
+								_reactRouter.Link,
+								{ to: '/user/' + blog.author },
 								blog.author
 							)
 						),
@@ -36936,6 +36941,94 @@
 	});
 	
 	exports.default = NewPostForm;
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(34);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	var _reactRouter = __webpack_require__(172);
+	
+	var _jquery = __webpack_require__(228);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var userProfile = _react2.default.createClass({
+		displayName: 'userProfile',
+		getInitialState: function getInitialState() {
+			return { blogs: [] };
+		},
+		componentDidMount: function componentDidMount() {
+			var _this = this;
+	
+			_jquery2.default.ajax({
+				url: '/posts',
+				type: 'GET'
+			}).done(function (data) {
+				_this.setState({ blogs: data.reverse()
+				});
+			});
+		},
+	
+		render: function render() {
+			if (this.state.blogs.length > 1) console.log(this.state.blogs[0]._id);
+			return _react2.default.createElement(
+				'div',
+				{ id: 'landing-main' },
+				this.state.blogs.map(function (blog, idx) {
+					return;
+					_react2.default.createElement(
+						'div',
+						{ key: idx },
+						_react2.default.createElement(
+							'h1',
+							null,
+							blog.title
+						),
+						_react2.default.createElement(
+							'h6',
+							null,
+							'Date posted: ',
+							blog.date
+						),
+						_react2.default.createElement(
+							'h3',
+							null,
+							'By:',
+							_react2.default.createElement(
+								_reactRouter.Link,
+								{ to: '/user/' + blog.author },
+								blog.author
+							)
+						),
+						_react2.default.createElement('img', { alt: 'image', src: blog.imgURL, width: 800, height: 600 }),
+						_react2.default.createElement(
+							'p',
+							null,
+							blog.blog
+						)
+					);
+				})
+			);
+		}
+	});
+	
+	exports.default = userProfile;
 
 /***/ }
 /******/ ]);

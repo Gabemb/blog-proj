@@ -1,4 +1,0 @@
-const React = require('react')
-import {render} from 'react-dom';
-import {Link} from 'react-router'
-import $ from 'jquery';
