@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import {Link} from 'react-router'
 import $ from 'jquery'
 
-var Home = React.createClass({
+var userProfile = React.createClass({
 	getInitialState(){
 		return {blogs: []}
 	},
@@ -12,26 +12,29 @@ var Home = React.createClass({
 			url: '/posts',
 			type: 'GET',
 		}).done( (data) => {
-		 this.setState({blogs: data.reverse()})
-		} )
-	},
+		 this.setState({blogs: data.reverse()
+		 })})
+		},
 	render: function(){
-		console.log("OUR STATE", this.state.blogs)
+		if (this.state.blogs.length > 1) 
+			console.log(this.state.blogs[0]._id);
 		return (
 			<div id="landing-main">
 				{this.state.blogs.map( (blog, idx) => {
-					return (
+					return 
+					(
 					<div key={idx}>
 					<h1>{blog.title}</h1> 
 					<h6>Date posted: {blog.date}</h6>
 					<h3>By:<Link to={`/user/${blog.author}`}>{blog.author}</Link></h3>
 					<img alt="image" src={blog.imgURL} width={800} height={600}></img>
 					<p>{blog.blog}</p>
-					</div>)
+					</div>
+					)
 				})}
 			</div>
 			)
 	}
 })
 
-export default Home;
+export default userProfile;

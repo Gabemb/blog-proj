@@ -30,7 +30,8 @@ var NewPostForm = React.createClass({
 					imgURL: blogURL,
 					date: Date.call()
 					}
-		});
+		})
+		
 	},
 	render() {
 		return (
