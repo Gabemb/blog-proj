@@ -3,8 +3,12 @@ const UserList = require('mongoose').model('UserList');
 
 const getUser = (req, res) => {
   UserList.find({}, (err, data) => {
-    res.send(data);
-})
+    console.log(data)
+    res.send(
+      data
+      // .map(function(key,idx){return key})
+      )
+    })
 }
 
 const postNewUser = (req, res) => {

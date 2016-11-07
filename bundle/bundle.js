@@ -36701,6 +36701,8 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
+	var _reactRouter = __webpack_require__(172);
+	
 	var _jquery = __webpack_require__(228);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
@@ -36719,7 +36721,7 @@
 				url: '/posts',
 				type: 'GET'
 			}).done(function (data) {
-				_this.setState({ blogs: data });
+				_this.setState({ blogs: data.reverse() });
 			});
 		},
 	
@@ -36730,8 +36732,7 @@
 				'div',
 				{ id: 'landing-main' },
 				this.state.blogs.map(function (blog, idx) {
-					return;
-					_react2.default.createElement(
+					return _react2.default.createElement(
 						'div',
 						{ key: idx },
 						_react2.default.createElement(
@@ -36742,16 +36743,20 @@
 						_react2.default.createElement(
 							'h6',
 							null,
-							'By: ',
-							blog.author
-						),
-						_react2.default.createElement(
-							'h6',
-							null,
 							'Date posted: ',
 							blog.date
 						),
-						_react2.default.createElement('img', { alt: 'image', src: blog.imgURL }),
+						_react2.default.createElement(
+							_reactRouter.Link,
+							{ to: '/user/' + blog.author },
+							_react2.default.createElement(
+								'h3',
+								null,
+								'By: ',
+								blog.author
+							)
+						),
+						_react2.default.createElement('img', { alt: 'image', src: blog.imgURL, width: 800, height: 600 }),
 						_react2.default.createElement(
 							'p',
 							null,
@@ -36873,7 +36878,8 @@
 	var NewPostForm = _react2.default.createClass({
 		displayName: 'NewPostForm',
 		getInitialState: function getInitialState() {
-			return { title: '',
+			return {
+				title: '',
 				blog: '',
 				author: '',
 				imgURL: ''

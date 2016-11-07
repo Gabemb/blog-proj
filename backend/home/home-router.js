@@ -13,4 +13,4 @@ const home = (req, res) => {
 router.route("*")
 	.get(home)
 
-	module.exports = router;
+module.exports = router;
