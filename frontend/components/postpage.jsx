@@ -26,8 +26,7 @@ var NewPostForm = React.createClass({
 			data: {	title: blogTitle, 
 					blog: blogBlog, 
 					author: blogAuthor, 
-					imgURL: blogURL,
-					date: Date.call()
+					imgURL: blogURL
 					}
 		})
 	},
@@ -50,7 +49,7 @@ var NewPostForm = React.createClass({
 					<input type="text" placeholder="img" 
 					onChange={this.handleChange.bind(this,'imgURL')}
 					value={this.state.input} />
-					
+
 					<Link to='/'> <input onClick={this.makeNewPost} type="button" value="submit" /> </Link>
 				</form>
 			</div>

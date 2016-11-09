@@ -101,7 +101,7 @@
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _home2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/newpost', component: _NewPost2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/newuser', component: _userlist2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/:user/:blogID', component: _Blog2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/:author/:blogTitle', component: _Blog2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/showuser', component: _profile2.default })
 	  )
 	), document.getElementById('root'));
@@ -37083,18 +37083,53 @@
 	
 	var Blog = _react2.default.createClass({
 		displayName: 'Blog',
-		getBlog: function getBlog() {
+		getInitialState: function getInitialState() {
+			return { blog: {} };
+		},
+		componentWillMount: function componentWillMount() {
+			var _this = this;
+	
+			//console.log("this is the thing", this.props.location.query)
+			// query string: ? + variable + & + more shit 
+			var title = this.props.params.blogTitle;
 			_jquery2.default.ajax({
-				url: '/posts/',
-				type: 'GET'
-			}).done(function () {});
+				url: '/api/posts',
+				type: 'POST',
+				data: { title: title,
+					single: true }
+			}).done(function (data) {
+				console.log("SUCCESS", data);
+				_this.setState({ blog: data });
+			});
 		},
 		render: function render() {
-			console.log(this.params);
 			return _react2.default.createElement(
 				'div',
 				null,
-				'This is your blog!'
+				_react2.default.createElement(
+					'h1',
+					null,
+					this.state.blog.title
+				),
+				_react2.default.createElement(
+					'h6',
+					null,
+					'By: ',
+					this.state.blog.author
+				),
+				'  ',
+				_react2.default.createElement(
+					'h6',
+					null,
+					' ',
+					this.state.blog.date
+				),
+				_react2.default.createElement('br', null),
+				_react2.default.createElement(
+					'p',
+					null,
+					this.state.blog.blog
+				)
 			);
 		}
 	});
