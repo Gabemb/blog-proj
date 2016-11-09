@@ -14,7 +14,7 @@ var Home = React.createClass({
 	},
 	getBlogPosts(){
 		$.ajax({
-			url: '/posts',
+			url: '/api/posts',
 			type: 'GET',
 		}).done( (data) => {
 		 this.setState({blogs: data.reverse()})

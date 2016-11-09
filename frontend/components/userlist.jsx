@@ -17,7 +17,7 @@ var newUser = React.createClass({
 	},
 	makeNewUser(event) {
 		$.ajax({
-			url: '/user',
+			url: '/api/user',
 			type: 'POST',
 			data: {
 				username: this.state.username,
