@@ -1,8 +1,9 @@
 import React from 'react';
+import {Link} from 'react-router';
 
 import $ from 'jquery';
 
-var DeleteBlog = React.createClass({
+var editBlog = React.createClass({
 	deletePost() {
 		console.log("ID of current blog", this.props.blogID)
 		$.ajax({
@@ -17,10 +18,10 @@ var DeleteBlog = React.createClass({
 		console.log(this.props)
 		return (
 			<div>
-				<button onClick={this.deletePost}>delete</button>
+				<button onSubmit={this.deletePost}>delete</button>
 			</div>
 		)
 	}
 })
 
-export default DeleteBlog;
+export default editBlog;

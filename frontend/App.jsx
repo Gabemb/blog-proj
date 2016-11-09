@@ -27,7 +27,7 @@ render(
       <Route path="/newpost" component={NewPostForm} />
       <Route path="/newuser" component={newUser} />
       <Route path="/:user/:blogID" component={Blog} />  
-      <Route path="/user/:userName" component={userProfile}/>
+      <Route path="/showuser" component={userProfile}/>
     </Route>
    </Router>,
   document.getElementById('root')

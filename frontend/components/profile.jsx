@@ -5,33 +5,24 @@ import $ from 'jquery'
 
 var userProfile = React.createClass({
 	getInitialState(){
-		return {blogs: []}
+		return {profile: null}
 	},
-	componentDidMount() {
+	componentWillMount() {
 		$.ajax({
-			url: '/posts',
+			url: '/api/user',
 			type: 'GET',
 		}).done( (data) => {
-		 		this.setState({blogs: data.reverse()});
-			});
-		},
+			console.log(data)
+			this.setState({profile: data})
+		});
+	},
 	render: function(){
-		if (this.state.blogs.length > 1) 
-			console.log(this.state.blogs[0]._id);
 		return (
-			<div id="landing-main">
-				{this.state.blogs.map( (blog, idx) => {
-					return 
-					(
-					<div key={idx}>
-					<h1>{blog.title}</h1> 
-					<h6>Date posted: {blog.date}</h6>
-					<h3>By:<Link to={`/user/${blog.author}`}>{blog.author}</Link></h3>
-					<img alt="image" src={blog.imgURL} width={800} height={600}></img>
-					<p>{blog.blog}</p>
-					</div>
-					)
-				})}
+			<div id="user-profiles">
+				{this.state.profile ? this.state.profile.map( 
+					(userinfo, idx) => {
+						return <h1 key={idx}>{userinfo.username}</h1>
+				}) : null}
 			</div>
 			)
 	}

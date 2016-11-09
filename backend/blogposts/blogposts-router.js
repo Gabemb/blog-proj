@@ -29,6 +29,18 @@ const postBlogPosts = (req, res) => {
   })
 }
 
+
+const editBlogPosts = (req, res) =>{
+  res.sendStatus(200);
+  console.log("this is what we're trying to edit",req.body._id);
+  BlogPost.findById(req.body._id, (err,data) => {
+    console.log('we found it!', data);
+    BlogPost.update(data, (err)=>{
+      if(err) console.log('edit could not be completed');
+      else console.log('blog edited!')
+    })
+  })
+}
 //Delete a post in our database
 const delBlogPosts = (req, res) => { 
   res.sendStatus(200);

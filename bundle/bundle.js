@@ -102,7 +102,7 @@
 	    _react2.default.createElement(_reactRouter.Route, { path: '/newpost', component: _NewPost2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/newuser', component: _userlist2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/:user/:blogID', component: _Blog2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/user/:userName', component: _profile2.default })
+	    _react2.default.createElement(_reactRouter.Route, { path: '/showuser', component: _profile2.default })
 	  )
 	), document.getElementById('root'));
 
@@ -26506,7 +26506,7 @@
 			var _this = this;
 	
 			_jquery2.default.ajax({
-				url: '/posts',
+				url: '/api/posts',
 				type: 'GET'
 			}).done(function (data) {
 				_this.setState({ blogs: data.reverse() });
@@ -36819,7 +36819,7 @@
 	
 			console.log("ID of current blog", this.props.blogID);
 			_jquery2.default.ajax({
-				url: '/posts',
+				url: '/api/posts',
 				type: 'DELETE',
 				data: { _id: this.props.blogID }
 			}).done(function () {
@@ -36882,7 +36882,7 @@
 		},
 		makeNewUser: function makeNewUser(event) {
 			_jquery2.default.ajax({
-				url: '/user',
+				url: '/api/user',
 				type: 'POST',
 				data: {
 					username: this.state.username,
@@ -37030,58 +37030,31 @@
 	var userProfile = _react2.default.createClass({
 		displayName: 'userProfile',
 		getInitialState: function getInitialState() {
-			return { blogs: [] };
+			return { profile: null };
 		},
-		componentDidMount: function componentDidMount() {
+		componentWillMount: function componentWillMount() {
 			var _this = this;
 	
 			_jquery2.default.ajax({
-				url: '/posts',
+				url: '/api/user',
 				type: 'GET'
 			}).done(function (data) {
-				_this.setState({ blogs: data.reverse() });
+				console.log(data);
+				_this.setState({ profile: data });
 			});
 		},
 	
 		render: function render() {
-			if (this.state.blogs.length > 1) console.log(this.state.blogs[0]._id);
 			return _react2.default.createElement(
 				'div',
-				{ id: 'landing-main' },
-				this.state.blogs.map(function (blog, idx) {
-					return;
-					_react2.default.createElement(
-						'div',
+				{ id: 'user-profiles' },
+				this.state.profile ? this.state.profile.map(function (userinfo, idx) {
+					return _react2.default.createElement(
+						'h1',
 						{ key: idx },
-						_react2.default.createElement(
-							'h1',
-							null,
-							blog.title
-						),
-						_react2.default.createElement(
-							'h6',
-							null,
-							'Date posted: ',
-							blog.date
-						),
-						_react2.default.createElement(
-							'h3',
-							null,
-							'By:',
-							_react2.default.createElement(
-								_reactRouter.Link,
-								{ to: '/user/' + blog.author },
-								blog.author
-							)
-						),
-						_react2.default.createElement('img', { alt: 'image', src: blog.imgURL, width: 800, height: 600 }),
-						_react2.default.createElement(
-							'p',
-							null,
-							blog.blog
-						)
+						userinfo.username
 					);
-				})
+				}) : null
 			);
 		}
 	});
