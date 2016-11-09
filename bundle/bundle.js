@@ -54,7 +54,7 @@
 	
 	var _reactRouter = __webpack_require__(172);
 	
-	var _home = __webpack_require__(228);
+	var _home = __webpack_require__(229);
 	
 	var _home2 = _interopRequireDefault(_home);
 	
@@ -95,7 +95,7 @@
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _home2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/newpost', component: _postpage2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/newuser', component: _userlist2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/user/:userName', component: _profile2.default })
+	    _react2.default.createElement(_reactRouter.Route, { path: '/showuser', component: _profile2.default })
 	  )
 	), document.getElementById('root'));
 
@@ -26464,100 +26464,6 @@
 /* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(172);
-	
-	var _jquery = __webpack_require__(229);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	var _DeleteBlog = __webpack_require__(233);
-	
-	var _DeleteBlog2 = _interopRequireDefault(_DeleteBlog);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	//jquery for AJAX call
-	var Home = _react2.default.createClass({
-		displayName: 'Home',
-		getInitialState: function getInitialState() {
-			return { blogs: [] };
-		},
-		componentWillMount: function componentWillMount() {
-			this.getBlogPosts();
-		},
-		getBlogPosts: function getBlogPosts() {
-			var _this = this;
-	
-			_jquery2.default.ajax({
-				url: '/posts',
-				type: 'GET'
-			}).done(function (data) {
-				_this.setState({ blogs: data.reverse() });
-			});
-		},
-	
-		render: function render() {
-			var _this2 = this;
-	
-			console.log("OUR STATE", this.state.blogs);
-			if (this.state.blogs.length > 1) console.log(this.state.blogs[0]._id);
-			return _react2.default.createElement(
-				'div',
-				{ id: 'landing-main' },
-				this.state.blogs.map(function (blog, idx) {
-					return _react2.default.createElement(
-						'div',
-						{ key: idx },
-						_react2.default.createElement(
-							'h1',
-							null,
-							blog.title
-						),
-						_react2.default.createElement(
-							'h6',
-							null,
-							'Date posted: ',
-							blog.date
-						),
-						_react2.default.createElement(
-							_reactRouter.Link,
-							{ to: '/user/' + blog.author },
-							_react2.default.createElement(
-								'h3',
-								null,
-								'By: ',
-								blog.author
-							)
-						),
-						_react2.default.createElement('img', { alt: 'image', src: blog.imgURL, width: 50, height: 50 }),
-						_react2.default.createElement(
-							'p',
-							null,
-							blog.blog
-						),
-						_react2.default.createElement(_DeleteBlog2.default, { blogID: blog._id, refresh: _this2.getBlogPosts })
-					);
-				})
-			);
-		}
-	});
-	//React component
-	exports.default = Home;
-
-/***/ },
-/* 229 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	 * jQuery JavaScript Library v3.1.1
 	 * https://jquery.com/
@@ -36781,6 +36687,100 @@
 
 
 /***/ },
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(172);
+	
+	var _jquery = __webpack_require__(228);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _DeleteBlog = __webpack_require__(233);
+	
+	var _DeleteBlog2 = _interopRequireDefault(_DeleteBlog);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	//jquery for AJAX call
+	var Home = _react2.default.createClass({
+		displayName: 'Home',
+		getInitialState: function getInitialState() {
+			return { blogs: [] };
+		},
+		componentWillMount: function componentWillMount() {
+			this.getBlogPosts();
+		},
+		getBlogPosts: function getBlogPosts() {
+			var _this = this;
+	
+			_jquery2.default.ajax({
+				url: '/api/posts',
+				type: 'GET'
+			}).done(function (data) {
+				_this.setState({ blogs: data.reverse() });
+			});
+		},
+	
+		render: function render() {
+			var _this2 = this;
+	
+			console.log("OUR STATE", this.state.blogs);
+			if (this.state.blogs.length > 1) console.log(this.state.blogs[0]._id);
+			return _react2.default.createElement(
+				'div',
+				{ id: 'landing-main' },
+				this.state.blogs.map(function (blog, idx) {
+					return _react2.default.createElement(
+						'div',
+						{ key: idx },
+						_react2.default.createElement(
+							'h1',
+							null,
+							blog.title
+						),
+						_react2.default.createElement(
+							'h6',
+							null,
+							'Date posted: ',
+							blog.date
+						),
+						_react2.default.createElement(
+							_reactRouter.Link,
+							{ to: '/user/' + blog.author },
+							_react2.default.createElement(
+								'h3',
+								null,
+								'By: ',
+								blog.author
+							)
+						),
+						_react2.default.createElement('img', { alt: 'image', src: blog.imgURL, width: 50, height: 50 }),
+						_react2.default.createElement(
+							'p',
+							null,
+							blog.blog
+						),
+						_react2.default.createElement(_DeleteBlog2.default, { blogID: blog._id, refresh: _this2.getBlogPosts })
+					);
+				})
+			);
+		}
+	});
+	//React component
+	exports.default = Home;
+
+/***/ },
 /* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -36796,7 +36796,7 @@
 	
 	var _reactRouter = __webpack_require__(172);
 	
-	var _jquery = __webpack_require__(229);
+	var _jquery = __webpack_require__(228);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
@@ -36819,7 +36819,7 @@
 		},
 		makeNewUser: function makeNewUser(event) {
 			_jquery2.default.ajax({
-				url: '/user',
+				url: '/api/user',
 				type: 'POST',
 				data: {
 					username: this.state.username,
@@ -36873,7 +36873,7 @@
 	
 	var _reactRouter = __webpack_require__(172);
 	
-	var _jquery = __webpack_require__(229);
+	var _jquery = __webpack_require__(228);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
@@ -36900,7 +36900,7 @@
 			var blogAuthor = this.state.author;
 			var blogURL = this.state.imgURL;
 			_jquery2.default.ajax({
-				url: '/posts',
+				url: '/api/posts',
 				type: 'POST',
 				data: { title: blogTitle,
 					blog: blogBlog,
@@ -36959,7 +36959,7 @@
 	
 	var _reactRouter = __webpack_require__(172);
 	
-	var _jquery = __webpack_require__(229);
+	var _jquery = __webpack_require__(228);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
@@ -36968,58 +36968,31 @@
 	var userProfile = _react2.default.createClass({
 		displayName: 'userProfile',
 		getInitialState: function getInitialState() {
-			return { blogs: [] };
+			return { profile: null };
 		},
-		componentDidMount: function componentDidMount() {
+		componentWillMount: function componentWillMount() {
 			var _this = this;
 	
 			_jquery2.default.ajax({
-				url: '/posts',
+				url: '/api/user',
 				type: 'GET'
 			}).done(function (data) {
-				_this.setState({ blogs: data.reverse() });
+				console.log(data);
+				_this.setState({ profile: data });
 			});
 		},
 	
 		render: function render() {
-			if (this.state.blogs.length > 1) console.log(this.state.blogs[0]._id);
 			return _react2.default.createElement(
 				'div',
-				{ id: 'landing-main' },
-				this.state.blogs.map(function (blog, idx) {
-					return;
-					_react2.default.createElement(
-						'div',
+				{ id: 'user-profiles' },
+				this.state.profile ? this.state.profile.map(function (userinfo, idx) {
+					return _react2.default.createElement(
+						'h1',
 						{ key: idx },
-						_react2.default.createElement(
-							'h1',
-							null,
-							blog.title
-						),
-						_react2.default.createElement(
-							'h6',
-							null,
-							'Date posted: ',
-							blog.date
-						),
-						_react2.default.createElement(
-							'h3',
-							null,
-							'By:',
-							_react2.default.createElement(
-								_reactRouter.Link,
-								{ to: '/user/' + blog.author },
-								blog.author
-							)
-						),
-						_react2.default.createElement('img', { alt: 'image', src: blog.imgURL, width: 800, height: 600 }),
-						_react2.default.createElement(
-							'p',
-							null,
-							blog.blog
-						)
+						userinfo.username
 					);
-				})
+				}) : null
 			);
 		}
 	});
@@ -37042,7 +37015,7 @@
 	
 	var _reactRouter = __webpack_require__(172);
 	
-	var _jquery = __webpack_require__(229);
+	var _jquery = __webpack_require__(228);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
@@ -37055,7 +37028,7 @@
 	
 			console.log("ID of current blog", this.props.blogID);
 			_jquery2.default.ajax({
-				url: '/posts',
+				url: '/api/posts',
 				type: 'DELETE',
 				data: { _id: this.props.blogID }
 			}).done(function () {

@@ -24,8 +24,8 @@ const db = mongoose.connection;
 db.on('open', () => {
 	app.use(bodyParser.urlencoded({ extended: true }));
 	app.use(express.static('bundle'));
-	app.use('/posts', routes.posts);
-	app.use('/user', routes.user);
+	app.use('/api/posts', routes.posts);
+	app.use('/api/user', routes.user);
 	app.use('*', routes.home);
 	//Launch server on port 5555
 	app.listen(5555, () => {

@@ -3,7 +3,6 @@ const UserList = require('mongoose').model('UserList');
 
 const getUser = (req, res) => {
   UserList.find({}, (err, data) => {
-    var users = []
     res.send(
       data.map(function(key,idx){return key})
       )
@@ -28,9 +27,10 @@ const postNewUser = (req, res) => {
 }
 
 //Configure router for get and post calls
+
 router.route('/')
-  .get(getUser)
   .post(postNewUser)
+  .get(getUser)
 
 
 module.exports = router;
