@@ -21,7 +21,7 @@ var NewPost = React.createClass({
 		let blogAuthor = this.state.author;
 		let blogURL = this.state.imgURL;
 		$.ajax({
-			url: '/posts',
+			url: '/api/posts',
 			type: 'POST',
 			data: {	title: blogTitle, 
 					blog: blogBlog, 

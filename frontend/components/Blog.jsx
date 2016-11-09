@@ -5,14 +5,14 @@ import $ from 'jquery';
 const Blog = React.createClass({
 	getBlog() {
 		$.ajax({
-			url: '/posts/',
+			url: '/api/posts',
 			type: 'GET'
 		}).done( () => {
 			
 		});
 	},
 	render(){
-		console.log(this.params)
+		console.log(this.props.params)
 		return (
 			<div>
 				This is your blog!

@@ -9,6 +9,7 @@ import newUser from './components/userlist.jsx';
 import NewPostForm from './components/NewPost.jsx';
 import userProfile from './components/profile.jsx';
 import Blog from './components/Blog.jsx';
+import EditBlog from './components/EditBlog.jsx';
 
 var App = React.createClass({
   render: function() {
@@ -26,8 +27,9 @@ render(
     <IndexRoute component={Home}/>
       <Route path="/newpost" component={NewPostForm} />
       <Route path="/newuser" component={newUser} />
-      <Route path="/:user/:blogID" component={Blog} />  
-      <Route path="/showuser" component={userProfile}/>
+      <Route path="/user/:username" component={userProfile} />
+      <Route path="/user/:username/:blogID" component={EditBlog} />
+      <Route path="/:author/:blogID" component={Blog} />  
     </Route>
    </Router>,
   document.getElementById('root')

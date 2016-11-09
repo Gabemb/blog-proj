@@ -24,7 +24,6 @@ var newUser = React.createClass({
 				password: this.state.password,
 				email: this.state.email,
 				bio: this.state.bio,
-				date: Date.call()
 				}	
 			});
 	},
