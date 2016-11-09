@@ -30,11 +30,15 @@ var Home = React.createClass({
 					return (
 					<div key={idx}>
 						<Link to={`/${blog.author}/${blog.title}`}><h1>{blog.title}</h1> </Link>
+
 						<h6>Date posted: {blog.date}</h6>
-							<h3>By: <Link to ={`/user/${blog.author}`}>{blog.author}</Link></h3>
-								<img alt="image" src={blog.imgURL} width={50} height={50}></img>
+
+							<h3>By:<Link to={`/user/${blog.author}`}>{blog.author}</Link></h3>
+
+								<img alt={blog.imgURL} src={blog.imgURL} width={100} height={100}></img>
 								<p>{blog.blog}</p>
-								<DeleteBlog blogID={blog._id} refresh={this.getBlogPosts} /> 
+
+								<DeleteBlog blogID={blog._id} refresh={this.getBlogPosts} />
 								<EditBlogButton username={blog.author} blogID={blog._id} blogTitle={blog.title}/>
 					</div>)
 				})}

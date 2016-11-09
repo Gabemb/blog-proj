@@ -15,18 +15,25 @@ const getBlogPosts = (req, res) => {
 //Create a new test post in database
 const postBlogPosts = (req, res) => {
   console.log(req.body);
-  BlogPost.create({
-    title: req.body.title,
-    blog: req.body.blog,
-    author: req.body.author,
-    imgURL: req.body.imgURL
-  }, (err) => {
-    if (err){
-      console.log('error');
-      return;
-    }
-    console.log('success!');
-  })
+  if (req.body.single) {
+    BlogPost.findOne({title: req.body.title}, (err, data) => {
+      console.log("Is this right?", data)
+      res.send(data);
+    });
+  } else {
+    BlogPost.create({
+      title: req.body.title,
+      blog: req.body.blog,
+      author: req.body.author,
+      imgURL: req.body.imgURL
+    }, (err) => {
+      if (err){
+        console.log('error, could not create post');
+        return;
+      }
+      console.log('success! post created!');
+    });
+  }
 }
 
 
@@ -54,11 +61,13 @@ const delBlogPosts = (req, res) => {
   });
 }
 
+
 //Configure router for get and post calls
+
 router.route('/')
   .get(getBlogPosts)
   .post(postBlogPosts)
-  .delete(delBlogPosts)
+  .delete(delBlogPosts);
 
 
 module.exports = router;

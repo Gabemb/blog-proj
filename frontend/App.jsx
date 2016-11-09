@@ -29,7 +29,7 @@ render(
       <Route path="/newuser" component={newUser} />
       <Route path="/user/:username" component={userProfile} />
       <Route path="/user/:username/:blogID" component={EditBlog} />
-      <Route path="/:author/:blogID" component={Blog} />  
+      <Route path="/:author/:blogTitle" component={Blog} />  
     </Route>
    </Router>,
   document.getElementById('root')
