@@ -28,7 +28,7 @@ var Home = React.createClass({
 				{this.state.blogs.map( (blog, idx) => {
 					return (
 					<div key={idx}>
-						<h1>{blog.title}</h1> 
+						<Link to={`/${blog.author}/${blog.title}`}><h1>{blog.title}</h1> </Link>
 						<h6>Date posted: {blog.date}</h6>
 							<Link to ={`/user/${blog.author}`}><h3>By: {blog.author}</h3></Link>
 								<img alt="image" src={blog.imgURL} width={50} height={50}></img>

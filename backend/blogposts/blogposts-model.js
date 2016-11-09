@@ -5,7 +5,7 @@ const blogSchema = mongoose.Schema({
 	blog: {type: String, required: true},
 	author: String,
 	imgURL: String,
-	date: String
+	date: {type:Date, required:true, default: Date.now}
 });
 
 //First argument is name of model, second argument is schema

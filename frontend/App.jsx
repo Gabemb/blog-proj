@@ -6,8 +6,9 @@ import {Router, Route, browserHistory,IndexRoute} from 'react-router';
 //App components
 import Home from './components/home.jsx';
 import newUser from './components/userlist.jsx';
-import NewPostForm from './components/postpage.jsx';
+import NewPostForm from './components/NewPost.jsx';
 import userProfile from './components/profile.jsx';
+import Blog from './components/Blog.jsx';
 
 var App = React.createClass({
   render: function() {
@@ -24,7 +25,8 @@ render(
     <Route path="/">
     <IndexRoute component={Home}/>
       <Route path="/newpost" component={NewPostForm} />
-      <Route path="/newuser" component={newUser} />  
+      <Route path="/newuser" component={newUser} />
+      <Route path="/:user/:blogID" component={Blog} />  
       <Route path="/user/:userName" component={userProfile}/>
     </Route>
    </Router>,

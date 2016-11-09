@@ -58,21 +58,25 @@
 	
 	var _home2 = _interopRequireDefault(_home);
 	
-	var _userlist = __webpack_require__(230);
+	var _userlist = __webpack_require__(231);
 	
 	var _userlist2 = _interopRequireDefault(_userlist);
 	
-	var _postpage = __webpack_require__(231);
+	var _NewPost = __webpack_require__(232);
 	
-	var _postpage2 = _interopRequireDefault(_postpage);
+	var _NewPost2 = _interopRequireDefault(_NewPost);
 	
-	var _profile = __webpack_require__(232);
+	var _profile = __webpack_require__(233);
 	
 	var _profile2 = _interopRequireDefault(_profile);
 	
+	var _Blog = __webpack_require__(234);
+	
+	var _Blog2 = _interopRequireDefault(_Blog);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	//App components
+	//React modules
 	var App = _react2.default.createClass({
 	  displayName: 'App',
 	
@@ -83,7 +87,9 @@
 	      this.props.children
 	    );
 	  }
-	}); //React modules
+	});
+	
+	//App components
 	
 	
 	(0, _reactDom.render)(_react2.default.createElement(
@@ -93,8 +99,9 @@
 	    _reactRouter.Route,
 	    { path: '/' },
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _home2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/newpost', component: _postpage2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/newpost', component: _NewPost2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/newuser', component: _userlist2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/:user/:blogID', component: _Blog2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/user/:userName', component: _profile2.default })
 	  )
 	), document.getElementById('root'));
@@ -26480,7 +26487,7 @@
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
-	var _DeleteBlog = __webpack_require__(233);
+	var _DeleteBlog = __webpack_require__(230);
 	
 	var _DeleteBlog2 = _interopRequireDefault(_DeleteBlog);
 	
@@ -26519,9 +26526,14 @@
 						'div',
 						{ key: idx },
 						_react2.default.createElement(
-							'h1',
-							null,
-							blog.title
+							_reactRouter.Link,
+							{ to: '/' + blog.author + '/' + blog.title },
+							_react2.default.createElement(
+								'h1',
+								null,
+								blog.title
+							),
+							' '
 						),
 						_react2.default.createElement(
 							'h6',
@@ -36794,6 +36806,57 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _jquery = __webpack_require__(229);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var DeleteBlog = _react2.default.createClass({
+		displayName: 'DeleteBlog',
+		deletePost: function deletePost() {
+			var _this = this;
+	
+			console.log("ID of current blog", this.props.blogID);
+			_jquery2.default.ajax({
+				url: '/posts',
+				type: 'DELETE',
+				data: { _id: this.props.blogID }
+			}).done(function () {
+				_this.props.refresh();
+			});
+		},
+	
+		render: function render() {
+			console.log(this.props);
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'button',
+					{ onClick: this.deletePost },
+					'delete'
+				)
+			);
+		}
+	});
+	
+	exports.default = DeleteBlog;
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
 	var _reactRouter = __webpack_require__(172);
 	
 	var _jquery = __webpack_require__(229);
@@ -36858,7 +36921,7 @@
 	exports.default = newUser;
 
 /***/ },
-/* 231 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36881,8 +36944,8 @@
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
-	var NewPostForm = _react2.default.createClass({
-		displayName: 'NewPostForm',
+	var NewPost = _react2.default.createClass({
+		displayName: 'NewPost',
 		getInitialState: function getInitialState() {
 			return {
 				title: '',
@@ -36905,8 +36968,7 @@
 				data: { title: blogTitle,
 					blog: blogBlog,
 					author: blogAuthor,
-					imgURL: blogURL,
-					date: Date.call()
+					imgURL: blogURL
 				}
 			});
 		},
@@ -36941,10 +37003,10 @@
 		}
 	});
 	
-	exports.default = NewPostForm;
+	exports.default = NewPost;
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37027,7 +37089,7 @@
 	exports.default = userProfile;
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37040,44 +37102,31 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(172);
-	
 	var _jquery = __webpack_require__(229);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var DeleteBlog = _react2.default.createClass({
-		displayName: 'DeleteBlog',
-		deletePost: function deletePost() {
-			var _this = this;
-	
-			console.log("ID of current blog", this.props.blogID);
+	var Blog = _react2.default.createClass({
+		displayName: 'Blog',
+		getBlog: function getBlog() {
 			_jquery2.default.ajax({
-				url: '/posts',
-				type: 'DELETE',
-				data: { _id: this.props.blogID }
-			}).done(function () {
-				_this.props.refresh();
-			});
+				url: '/posts/',
+				type: 'GET'
+			}).done(function () {});
 		},
-	
 		render: function render() {
-			console.log(this.props);
+			console.log(this.params);
 			return _react2.default.createElement(
 				'div',
 				null,
-				_react2.default.createElement(
-					'button',
-					{ onClick: this.deletePost },
-					'delete'
-				)
+				'This is your blog!'
 			);
 		}
 	});
 	
-	exports.default = DeleteBlog;
+	exports.default = Blog;
 
 /***/ }
 /******/ ]);
