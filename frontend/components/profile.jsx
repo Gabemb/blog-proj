@@ -12,7 +12,6 @@ var userProfile = React.createClass({
 			url: '/api/user',
 			type: 'GET',
 		}).done( (data) => {
-			console.log(data)
 			this.setState({profile: data})
 		});
 	},
@@ -21,7 +20,13 @@ var userProfile = React.createClass({
 			<div id="user-profiles">
 				{this.state.profile ? this.state.profile.map( 
 					(userinfo, idx) => {
-						return <h1 key={idx}>{userinfo.username}</h1>
+						return 
+						<div key ={idx}>
+						<h1>{userinfo.username}</h1>
+						<h3>{userinfo.email}</h3>
+						<h3>{userinfo.bio}</h3>
+						<h3>{userinfo.date}</h3>
+						</div>
 				}) : null}
 			</div>
 			)

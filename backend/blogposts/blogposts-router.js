@@ -42,7 +42,7 @@ const editBlogPosts = (req, res) =>{
   console.log("this is what we're trying to edit",req.body._id);
   BlogPost.findById(req.body._id, (err,data) => {
     console.log('we found it!', data);
-    BlogPost.update(data, (err)=>{
+    BlogPost.get(data, (err)=>{
       if(err) console.log('edit could not be completed');
       else console.log('blog edited!')
     })

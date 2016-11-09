@@ -14,7 +14,7 @@ const Blog = React.createClass({
 			url: '/api/posts',
 			type: 'POST',
 			data: {title: title,
-							single: true}
+					single: true}
 		}).done( (data) => {
 			console.log("SUCCESS", data)
 			this.setState({blog: data})

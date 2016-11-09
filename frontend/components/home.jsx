@@ -4,6 +4,8 @@ import {Link} from 'react-router';
 import $ from 'jquery';
 //React component
 import DeleteBlog from './DeleteBlog';
+import EditBlogButton from './EditBlogButton.jsx';
+import EditBlog from './EditBlog.jsx';
 
 var Home = React.createClass({
 	getInitialState(){
@@ -21,7 +23,6 @@ var Home = React.createClass({
 		});
 	},
 	render: function(){
-		console.log("OUR STATE", this.state.blogs)
 		if (this.state.blogs.length > 1) console.log(this.state.blogs[0]._id);
 		return (
 			<div id="landing-main">
@@ -32,12 +33,13 @@ var Home = React.createClass({
 
 						<h6>Date posted: {blog.date}</h6>
 
-							<Link to ={`/user/${blog.author}`}><h3>By: {blog.author}</h3></Link>
+							<h3>By:<Link to={`/user/${blog.author}`}>{blog.author}</Link></h3>
 
 								<img alt={blog.imgURL} src={blog.imgURL} width={100} height={100}></img>
 								<p>{blog.blog}</p>
 
 								<DeleteBlog blogID={blog._id} refresh={this.getBlogPosts} />
+								<EditBlogButton username={blog.author} blogID={blog._id} blogTitle={blog.title}/>
 					</div>)
 				})}
 			</div>

@@ -58,25 +58,29 @@
 	
 	var _home2 = _interopRequireDefault(_home);
 	
-	var _userlist = __webpack_require__(231);
+	var _userlist = __webpack_require__(232);
 	
 	var _userlist2 = _interopRequireDefault(_userlist);
 	
-	var _NewPost = __webpack_require__(232);
+	var _NewPost = __webpack_require__(233);
 	
 	var _NewPost2 = _interopRequireDefault(_NewPost);
 	
-	var _profile = __webpack_require__(233);
+	var _profile = __webpack_require__(234);
 	
 	var _profile2 = _interopRequireDefault(_profile);
 	
-	var _Blog = __webpack_require__(234);
+	var _Blog = __webpack_require__(235);
 	
 	var _Blog2 = _interopRequireDefault(_Blog);
 	
+	var _EditBlog = __webpack_require__(231);
+	
+	var _EditBlog2 = _interopRequireDefault(_EditBlog);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	//React modules
+	//App components
 	var App = _react2.default.createClass({
 	  displayName: 'App',
 	
@@ -87,9 +91,7 @@
 	      this.props.children
 	    );
 	  }
-	});
-	
-	//App components
+	}); //React modules
 	
 	
 	(0, _reactDom.render)(_react2.default.createElement(
@@ -101,8 +103,9 @@
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _home2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/newpost', component: _NewPost2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/newuser', component: _userlist2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/:author/:blogTitle', component: _Blog2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/showuser', component: _profile2.default })
+	    _react2.default.createElement(_reactRouter.Route, { path: '/user/:username', component: _profile2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/user/:username/:blogID', component: _EditBlog2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/:author/:blogTitle', component: _Blog2.default })
 	  )
 	), document.getElementById('root'));
 
@@ -26491,6 +26494,14 @@
 	
 	var _DeleteBlog2 = _interopRequireDefault(_DeleteBlog);
 	
+	var _EditBlogButton = __webpack_require__(236);
+	
+	var _EditBlogButton2 = _interopRequireDefault(_EditBlogButton);
+	
+	var _EditBlog = __webpack_require__(231);
+	
+	var _EditBlog2 = _interopRequireDefault(_EditBlog);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	//jquery for AJAX call
@@ -26516,7 +26527,6 @@
 		render: function render() {
 			var _this2 = this;
 	
-			console.log("OUR STATE", this.state.blogs);
 			if (this.state.blogs.length > 1) console.log(this.state.blogs[0]._id);
 			return _react2.default.createElement(
 				'div',
@@ -26542,12 +26552,12 @@
 							blog.date
 						),
 						_react2.default.createElement(
-							_reactRouter.Link,
-							{ to: '/user/' + blog.author },
+							'h3',
+							null,
+							'By:',
 							_react2.default.createElement(
-								'h3',
-								null,
-								'By: ',
+								_reactRouter.Link,
+								{ to: '/user/' + blog.author },
 								blog.author
 							)
 						),
@@ -26557,7 +26567,8 @@
 							null,
 							blog.blog
 						),
-						_react2.default.createElement(_DeleteBlog2.default, { blogID: blog._id, refresh: _this2.getBlogPosts })
+						_react2.default.createElement(_DeleteBlog2.default, { blogID: blog._id, refresh: _this2.getBlogPosts }),
+						_react2.default.createElement(_EditBlogButton2.default, { username: blog.author, blogID: blog._id, blogTitle: blog.title })
 					);
 				})
 			);
@@ -36857,6 +36868,41 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _jquery = __webpack_require__(229);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var EditBlog = _react2.default.createClass({
+		displayName: 'EditBlog',
+	
+		render: function render() {
+			console.log(this.props.params, 'EditBlog component');
+			return _react2.default.createElement(
+				'div',
+				null,
+				'hello from EditBlog'
+			);
+		}
+	});
+	
+	exports.default = EditBlog;
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
 	var _reactRouter = __webpack_require__(172);
 	
 	var _jquery = __webpack_require__(229);
@@ -36888,8 +36934,7 @@
 					username: this.state.username,
 					password: this.state.password,
 					email: this.state.email,
-					bio: this.state.bio,
-					date: Date.call()
+					bio: this.state.bio
 				}
 			});
 		},
@@ -36921,7 +36966,7 @@
 	exports.default = newUser;
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37006,7 +37051,7 @@
 	exports.default = NewPost;
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37039,7 +37084,6 @@
 				url: '/api/user',
 				type: 'GET'
 			}).done(function (data) {
-				console.log(data);
 				_this.setState({ profile: data });
 			});
 		},
@@ -37049,10 +37093,30 @@
 				'div',
 				{ id: 'user-profiles' },
 				this.state.profile ? this.state.profile.map(function (userinfo, idx) {
-					return _react2.default.createElement(
-						'h1',
+					return;
+					_react2.default.createElement(
+						'div',
 						{ key: idx },
-						userinfo.username
+						_react2.default.createElement(
+							'h1',
+							null,
+							userinfo.username
+						),
+						_react2.default.createElement(
+							'h3',
+							null,
+							userinfo.email
+						),
+						_react2.default.createElement(
+							'h3',
+							null,
+							userinfo.bio
+						),
+						_react2.default.createElement(
+							'h3',
+							null,
+							userinfo.date
+						)
 					);
 				}) : null
 			);
@@ -37062,7 +37126,7 @@
 	exports.default = userProfile;
 
 /***/ },
-/* 234 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37136,6 +37200,51 @@
 	});
 	
 	exports.default = Blog;
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(172);
+	
+	var _jquery = __webpack_require__(229);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var EditBlogButton = _react2.default.createClass({
+		displayName: 'EditBlogButton',
+	
+		render: function render() {
+			console.log('this is from the edit button', this.props.blogID);
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					_reactRouter.Link,
+					{ to: '/user/' + this.props.username + '/' + this.props.blogTitle + '/' + this.props.blogID },
+					_react2.default.createElement(
+						'button',
+						null,
+						'edit'
+					)
+				)
+			);
+		}
+	});
+	
+	exports.default = EditBlogButton;
 
 /***/ }
 /******/ ]);
