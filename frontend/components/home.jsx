@@ -34,7 +34,7 @@ var Home = React.createClass({
 
 							<Link to ={`/user/${blog.author}`}><h3>By: {blog.author}</h3></Link>
 
-								<img alt="image" src={blog.imgURL} width={50} height={50}></img>
+								<img alt={blog.imgURL} src={blog.imgURL} width={100} height={100}></img>
 								<p>{blog.blog}</p>
 
 								<DeleteBlog blogID={blog._id} refresh={this.getBlogPosts} />

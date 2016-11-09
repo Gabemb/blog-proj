@@ -27,7 +27,7 @@ const Blog = React.createClass({
 					<h6>By: {this.state.blog.author}</h6>  <h6> {this.state.blog.date}</h6>
 
 					<br/>
-					
+					<img alt={this.state.blog.imgURL} src={this.state.blog.imgURL}></img>
 					<p>{this.state.blog.blog}</p>
 			</div>
 		)

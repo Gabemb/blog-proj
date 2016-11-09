@@ -15,7 +15,12 @@ const getBlogPosts = (req, res) => {
 //Create a new test post in database
 const postBlogPosts = (req, res) => {
   console.log(req.body);
-  if (!req.body.single) {
+  if (req.body.single) {
+    BlogPost.findOne({title: req.body.title}, (err, data) => {
+      console.log("Is this right?", data)
+      res.send(data);
+    });
+  } else {
     BlogPost.create({
       title: req.body.title,
       blog: req.body.blog,
@@ -27,12 +32,7 @@ const postBlogPosts = (req, res) => {
         return;
       }
       console.log('success! post created!');
-    })
-  } else {
-    BlogPost.findOne({title: req.body.title}, (err, data) => {
-      console.log("Is this right?", data)
-      res.send(data);
-    })
+    });
   }
 }
 

@@ -26551,7 +26551,7 @@
 								blog.author
 							)
 						),
-						_react2.default.createElement('img', { alt: 'image', src: blog.imgURL, width: 50, height: 50 }),
+						_react2.default.createElement('img', { alt: blog.imgURL, src: blog.imgURL, width: 100, height: 100 }),
 						_react2.default.createElement(
 							'p',
 							null,
@@ -36963,7 +36963,7 @@
 			var blogAuthor = this.state.author;
 			var blogURL = this.state.imgURL;
 			_jquery2.default.ajax({
-				url: '/posts',
+				url: '/api/posts',
 				type: 'POST',
 				data: { title: blogTitle,
 					blog: blogBlog,
@@ -37125,6 +37125,7 @@
 					this.state.blog.date
 				),
 				_react2.default.createElement('br', null),
+				_react2.default.createElement('img', { alt: this.state.blog.imgURL, src: this.state.blog.imgURL }),
 				_react2.default.createElement(
 					'p',
 					null,
