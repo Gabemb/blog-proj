@@ -38,16 +38,12 @@ const postBlogPosts = (req, res) => {
 
 
 const editBlogPosts = (req, res) =>{
-  res.sendStatus(200);
-  console.log("this is what we're trying to edit",req.body._id);
-  BlogPost.findById(req.body._id, (err,data) => {
-    console.log('we found it!', data);
-    BlogPost.get(data, (err)=>{
-      if(err) console.log('edit could not be completed');
-      else console.log('blog edited!')
-    })
+  console.log(req.params.BlogID,'blogid')
+  BlogPost.findById(req.params.BlogID, (err, data) => {
+    res.send(data);
   })
 }
+
 //Delete a post in our database
 const delBlogPosts = (req, res) => { 
   res.sendStatus(200);
@@ -68,6 +64,10 @@ router.route('/')
   .get(getBlogPosts)
   .post(postBlogPosts)
   .delete(delBlogPosts);
+
+//model routers also needs to have param IDs declared along with components so you can access the URL params
+router.route('/single/:BlogID')
+  .put(editBlogPosts)
 
 
 module.exports = router;

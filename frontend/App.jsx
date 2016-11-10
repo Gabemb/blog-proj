@@ -1,7 +1,7 @@
 //React modules
 import React from 'react';
 import {render} from 'react-dom';
-import {Router, Route, browserHistory,IndexRoute} from 'react-router';
+import {Link, Router, Route, browserHistory,IndexRoute} from 'react-router';
 
 //App components
 import Home from './components/home.jsx';
@@ -27,8 +27,8 @@ render(
     <IndexRoute component={Home}/>
       <Route path="/newpost" component={NewPostForm} />
       <Route path="/newuser" component={newUser} />
+      <Route path="/user/:username/:blogTitle/:BlogID" component={EditBlog} />
       <Route path="/user/:username" component={userProfile} />
-      <Route path="/user/:username/:blogID" component={EditBlog} />
       <Route path="/:author/:blogTitle" component={Blog} />  
     </Route>
    </Router>,
