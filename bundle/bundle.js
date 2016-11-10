@@ -58,23 +58,23 @@
 	
 	var _home2 = _interopRequireDefault(_home);
 	
-	var _userlist = __webpack_require__(232);
+	var _userlist = __webpack_require__(233);
 	
 	var _userlist2 = _interopRequireDefault(_userlist);
 	
-	var _NewPost = __webpack_require__(233);
+	var _NewPost = __webpack_require__(234);
 	
 	var _NewPost2 = _interopRequireDefault(_NewPost);
 	
-	var _profile = __webpack_require__(234);
+	var _profile = __webpack_require__(235);
 	
 	var _profile2 = _interopRequireDefault(_profile);
 	
-	var _Blog = __webpack_require__(235);
+	var _Blog = __webpack_require__(236);
 	
 	var _Blog2 = _interopRequireDefault(_Blog);
 	
-	var _EditBlog = __webpack_require__(231);
+	var _EditBlog = __webpack_require__(232);
 	
 	var _EditBlog2 = _interopRequireDefault(_EditBlog);
 	
@@ -103,8 +103,8 @@
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _home2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/newpost', component: _NewPost2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/newuser', component: _userlist2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/user/:username/:blogTitle/:BlogID', component: _EditBlog2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/user/:username', component: _profile2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/user/:username/:blogID', component: _EditBlog2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/:author/:blogTitle', component: _Blog2.default })
 	  )
 	), document.getElementById('root'));
@@ -26494,11 +26494,11 @@
 	
 	var _DeleteBlog2 = _interopRequireDefault(_DeleteBlog);
 	
-	var _EditBlogButton = __webpack_require__(236);
+	var _EditBlogButton = __webpack_require__(231);
 	
 	var _EditBlogButton2 = _interopRequireDefault(_EditBlogButton);
 	
-	var _EditBlog = __webpack_require__(231);
+	var _EditBlog = __webpack_require__(232);
 	
 	var _EditBlog2 = _interopRequireDefault(_EditBlog);
 	
@@ -36868,6 +36868,51 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRouter = __webpack_require__(172);
+	
+	var _jquery = __webpack_require__(229);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var EditBlogButton = _react2.default.createClass({
+		displayName: 'EditBlogButton',
+	
+		render: function render() {
+			console.log('this is from the edit button', this.props.blogID);
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					_reactRouter.Link,
+					{ to: '/user/' + this.props.username + '/' + this.props.blogTitle + '/' + this.props.blogID },
+					_react2.default.createElement(
+						'button',
+						null,
+						'edit'
+					)
+				)
+			);
+		}
+	});
+	
+	exports.default = EditBlogButton;
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
 	var _jquery = __webpack_require__(229);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
@@ -36876,21 +36921,72 @@
 	
 	var EditBlog = _react2.default.createClass({
 		displayName: 'EditBlog',
+		getInitialState: function getInitialState() {
+			return { blogid: null };
+		},
 	
+		componentDidMount: function componentDidMount() {
+			var _this = this;
+	
+			var id = this.props.params.BlogID;
+			// console.log('before ajax',id)
+			_jquery2.default.ajax({
+				url: '/api/posts/single/' + id,
+				type: 'PUT'
+			}).done(function (data) {
+				// console.log("SUCCESS", data)
+				_this.setState({ blogid: data });
+			});
+		},
+		handlClick: function handlClick() {
+			console.log(this.state.blogid);
+		},
+		// editRequest: function() {
+		// 	$.ajax({
+		// 		url: '/'
+		// 	})
+		// }
 		render: function render() {
-			console.log(this.props.params, 'EditBlog component');
 			return _react2.default.createElement(
 				'div',
 				null,
-				'hello from EditBlog'
+				this.state.blogid ? _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'form',
+						null,
+						_react2.default.createElement(
+							'div',
+							{ id: 'CommentDivId' },
+							_react2.default.createElement('input', { type: 'text', value: this.state.blogid.author })
+						),
+						_react2.default.createElement(
+							'button',
+							{ onClick: this.handleClick },
+							'butt'
+						)
+					)
+				) : null
 			);
+			// if (this.state.blogid){
+			// return (
+			// 	<div>
+			// 		hello from editblog
+			// 		<h1>{this.state.blogid.title}</h1>
+			// 	</div>
+			// 	)
+			// }
+			// else {
+			// 	return null
+			// }
 		}
 	});
 	
 	exports.default = EditBlog;
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36966,7 +37062,7 @@
 	exports.default = newUser;
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37051,7 +37147,7 @@
 	exports.default = NewPost;
 
 /***/ },
-/* 234 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37126,7 +37222,7 @@
 	exports.default = userProfile;
 
 /***/ },
-/* 235 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37200,51 +37296,6 @@
 	});
 	
 	exports.default = Blog;
-
-/***/ },
-/* 236 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(172);
-	
-	var _jquery = __webpack_require__(229);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var EditBlogButton = _react2.default.createClass({
-		displayName: 'EditBlogButton',
-	
-		render: function render() {
-			console.log('this is from the edit button', this.props.blogID);
-			return _react2.default.createElement(
-				'div',
-				null,
-				_react2.default.createElement(
-					_reactRouter.Link,
-					{ to: '/user/' + this.props.username + '/' + this.props.blogTitle + '/' + this.props.blogID },
-					_react2.default.createElement(
-						'button',
-						null,
-						'edit'
-					)
-				)
-			);
-		}
-	});
-	
-	exports.default = EditBlogButton;
 
 /***/ }
 /******/ ]);
