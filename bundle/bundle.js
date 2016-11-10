@@ -36919,6 +36919,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
 	var EditBlog = _react2.default.createClass({
 		displayName: 'EditBlog',
 		getInitialState: function getInitialState() {
@@ -36938,15 +36940,18 @@
 				_this.setState({ blogid: data });
 			});
 		},
-		handlClick: function handlClick() {
-			console.log(this.state.blogid);
+		handleChange: function handleChange(inputEvent, event) {
+			var id = this.props.params.BlogID;
+			this.setState(_defineProperty({}, inputEvent, event.target.value));
 		},
+	
 		// editRequest: function() {
 		// 	$.ajax({
 		// 		url: '/'
 		// 	})
 		// }
 		render: function render() {
+			console.log(this.state.blogid);
 			return _react2.default.createElement(
 				'div',
 				null,
@@ -36958,8 +36963,15 @@
 						null,
 						_react2.default.createElement(
 							'div',
-							{ id: 'CommentDivId' },
-							_react2.default.createElement('input', { type: 'text', value: this.state.blogid.author })
+							{ id: 'blogDivTitle' },
+							_react2.default.createElement('textarea', _defineProperty({ type: 'text', value: this.state.blogid.title, onChange: this.handleChange.bind(this, 'title')
+							}, 'value', this.state.blogid.title))
+						),
+						_react2.default.createElement(
+							'div',
+							{ id: 'blogDivBlog' },
+							_react2.default.createElement('textarea', _defineProperty({ type: 'text', value: this.state.blogid.blog, onChange: this.handleChange.bind(this, 'blog')
+							}, 'value', this.state.blogid.blog))
 						),
 						_react2.default.createElement(
 							'button',

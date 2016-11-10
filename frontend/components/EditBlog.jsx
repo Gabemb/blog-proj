@@ -6,7 +6,7 @@ var EditBlog = React.createClass({
 		return {blogid: null}
 	},
 	componentDidMount: function() {
-		var id = this.props.params.BlogID
+		let id = this.props.params.BlogID
 		// console.log('before ajax',id)
 		$.ajax({
 			url: '/api/posts/single/'+id,
@@ -16,8 +16,9 @@ var EditBlog = React.createClass({
 			this.setState({blogid: data})
 		});
 	},
-	handlClick: function(){
-		console.log(this.state.blogid)
+	handleChange(inputEvent, event) {
+		let id = this.props.params.BlogID
+		this.setState({[inputEvent]: event.target.value});
 	},
 	// editRequest: function() {
 	// 	$.ajax({
@@ -25,13 +26,19 @@ var EditBlog = React.createClass({
 	// 	})
 	// }
 	render: function(){
+		console.log(this.state.blogid)
 		return (
 		<div>
 		{this.state.blogid ? 
 			(<div>
 				<form>
-				<div id='CommentDivId'>
-				<input type='text' value={this.state.blogid.author}></input>	 	
+				<div id='blogDivTitle'>
+				<textarea type='text' value={this.state.blogid.title} onChange={this.handleChange.bind(this,'title')}
+					value={this.state.blogid.title}></textarea>	 	
+				</div>
+				<div id='blogDivBlog'>
+				<textarea type='text' value={this.state.blogid.blog} onChange={this.handleChange.bind(this,'blog')}
+					value={this.state.blogid.blog}></textarea>	 	
 				</div>
 				<button onClick={this.handleClick}>butt</button>
 				</form>	
